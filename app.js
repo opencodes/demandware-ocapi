@@ -32,7 +32,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-
-http.createServer(app).listen(app.get('port'), function(){
+//Prod - 162.243.20.178 //Dev 10.207.66.120
+http.createServer(app).listen(app.get('port'), '162.243.20.178', function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
