@@ -36,7 +36,9 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav" id="main-category">
-            
+            <% for (var k in categories) { %>
+            <li><a><%= categories[k].name %></a></li>
+            <% } %>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

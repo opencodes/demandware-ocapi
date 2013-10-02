@@ -1,8 +1,8 @@
+"use strict";
+var util = require('util');
+var config = require('../config');
+var catalog = require('./catalog/catalog');
 
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+module.exports = function(app){
+	app.get('/', catalog.getCategories, catalog.render);
 };
