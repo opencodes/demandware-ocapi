@@ -75,8 +75,8 @@
                					<li class="span3">
 									<div class="product-box">
 										<span class="sale_tag"></span>												
-										<a href="product_detail.html"  title="<%= products[k].image.title %>"><img alt="<%= products[k].image.alt %>" src="<%= products[k].image.link %>"></a><br/>
-										<a href="<%= products[k].product_id %>" class="title"><%= products[k].product_name %></a><br/>
+										<a href="/cat/product/<%= products[k].product_id %>"  title="<%= products[k].image.title %>"><img alt="<%= products[k].image.alt %>" src="<%= products[k].image.link %>"></a><br/>
+										<a href="/cat/product/<%= products[k].product_id %>" class="title"><%= products[k].product_name %></a><br/>
 										<p class="price">$<%= products[k].price %></p>
 									</div>
 								</li>

@@ -3,6 +3,34 @@ var config = require('../../config');
 var request = require('request');
 
 var catalog = {
+		getProductById : function(req,res,next){
+			var url = '/products/'+req.params.id+'?expand=availability,prices';
+			var url2 = '/products/'+req.params.id+'/images?view_type=';
+			catalog.callapi(url,function(err,data1){
+				if(!err && data1){
+					res.product = data1;
+					catalog.callapi(url2,function(err,data2){
+						if(!err && data2){
+							res.product.image_groups = data2.image_groups;
+							next();
+						}else{
+							res.products = null;
+							next();
+						}
+						
+					});
+				}else{
+					res.products = null;
+					next();
+ 				}
+				
+ 			});
+		},
+		/**
+		 * @param product_img
+		 * @param products
+		 * @returns {___anonymous205_206}
+		 */
 		mapProduct : function(product_img,products){
 			var productsmap = {};
 			//Map products
@@ -83,6 +111,14 @@ var catalog = {
 		 */
 		renderPLP : function(req,res){
 			res.render('products', {categories: res.cats.categories,products: res.products});
+ 		},
+ 		/**
+ 		 * render PDP page
+ 		 * @param req
+ 		 * @param res
+ 		 */
+		renderPDP : function(req,res){
+			res.render('product_detail', {categories: res.cats.categories,product: res.product});
  		}
 };
 module.exports = catalog;
