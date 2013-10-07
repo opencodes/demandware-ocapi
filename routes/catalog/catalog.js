@@ -8,12 +8,15 @@ var catalog = {
 		 * @param next
 		 */
 		getProductById : function(req,res,next){
-			var url = '/products/'+req.params.id+'?expand=availability,prices';
-			var url2 = '/products/'+req.params.id+'/images?view_type=';
-			dwocapi.get(url,function(err,data1){
+			var url = '/products/'+req.params.id;
+			var url2 = '/products/'+req.params.id+'/images';
+			options = {
+					expand : 'availability,prices'
+			};
+			dwocapi.get(url,options,function(err,data1){
 				if(!err && data1){
 					res.product = data1;
-					dwocapi.get(url2,function(err,data2){
+					dwocapi.get(url2,{},function(err,data2){
 						if(!err && data2){
 							res.product.image_groups = data2.image_groups;
 							next();
@@ -58,12 +61,15 @@ var catalog = {
 		 * @param next
 		 */
 		getProducts : function(req,res,next){
-			var url = '/product_search/images?refine_1=cgid='+req.params.catalog;
-			var url2 = '/product_search/prices?refine_1=cgid='+req.params.catalog;
-			dwocapi.get(url2,function(err,data1){
+			var url = '/product_search/images';
+			var url2 = '/product_search/prices';
+			options = {
+					refine_1:'cgid='+req.params.catalog
+			};
+			dwocapi.get(url2,options,function(err,data1){
 				if(!err && data1){
 					res.products = data1;
-					dwocapi.get(url,function(err,data2){
+					dwocapi.get(url,options,function(err,data2){
 						if(!err && data2){
 							res.products = catalog.mapProduct(data2,res.products);
 							next();
@@ -87,8 +93,11 @@ var catalog = {
 		 * @param next
 		 */
 		getCategories : function(req,res,next){
-			var url = '/categories/root?levels=1';
-			dwocapi.get(url,function(err,data){
+			var url = '/categories/root';
+			options = {
+					levels:1	
+			};
+			dwocapi.get(url,options,function(err,data){
  				if(!err && data){
 					res.cats = data;
 		 		}else{
@@ -103,7 +112,6 @@ var catalog = {
  		 * @param res
  		 */
  		render : function(req,res){
- 			
 			res.render('home', { categories: res.cats.categories });
 		},
 		/**

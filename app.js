@@ -15,10 +15,13 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
-app.use(express.session());
+
+var connect = require('connect')
+, RedisStore = require('connect-redis')(connect);
+app.use(express.bodyParser());
+app.use(express.cookieParser());
+connect().use(connect.session({ store: new RedisStore(), secret: '3432423YTTU' }));
 app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));

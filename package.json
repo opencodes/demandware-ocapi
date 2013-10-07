@@ -9,6 +9,7 @@
     "express": "3.4.0",
     "ejs": "*",
     "stylus": "*",
-    "request":"*"
+    "request":"*",
+    "connect-redis":"1.4.5"
   }
 }
