@@ -18,14 +18,14 @@
 		<link href="/themes/css/jquery.fancybox.css" rel="stylesheet"/>
 				
 		<!-- scripts -->
-		<script src="themes/js/jquery-1.7.2.min.js"></script>
-		<script src="bootstrap/js/bootstrap.min.js"></script>				
-		<script src="themes/js/superfish.js"></script>	
-		<script src="themes/js/jquery.scrolltotop.js"></script>
-		<script src="themes/js/jquery.fancybox.js"></script>
+		<script src="/themes/js/jquery-1.7.2.min.js"></script>
+		<script src="/bootstrap/js/bootstrap.min.js"></script>				
+		<script src="/themes/js/superfish.js"></script>	
+		<script src="/themes/js/jquery.scrolltotop.js"></script>
+		<script src="/themes/js/jquery.fancybox.js"></script>
 		<!--[if lt IE 9]>			
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-			<script src="js/respond.min.js"></script>
+			<script src="/js/respond.min.js"></script>
 		<![endif]-->
 	</head>
     <body>		
@@ -93,7 +93,7 @@
 								<h4><strong>Price: $<%= product.price %></strong></h4>
 							</div>
 							<div class="span5">
-								<form class="form-inline">
+								<form method="post" action="/addToCart">
 									<label class="checkbox">
 										<input type="checkbox" value=""> Option one is this and that
 									</label>
@@ -102,10 +102,12 @@
 									  <input type="checkbox" value=""> Be sure to include why it's great
 									</label>
 									<p>&nbsp;</p>
+									
 									<label>Qty:</label>
-									<input type="text" class="span1" placeholder="1" value="1">
+									<input type="text" class="span1" placeholder="1" value="1" name="qty">
+									<input type="hidden" class="span1" placeholder="1" value="<%=product.id%>" name="pid">
 									<button class="btn btn-inverse" type="submit">Add to cart</button>
-								</form>
+								  </form>
 							</div>							
 						</div>
 						<div class="row">

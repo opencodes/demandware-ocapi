@@ -1,15 +1,19 @@
-var http = require('http');
 var config = require('../../config');
-var request = require('request');
-
+var dwocapi = require('../../dwocapi');
 var catalog = {
+		/**
+		 * Get Product by Id
+		 * @param req
+		 * @param res
+		 * @param next
+		 */
 		getProductById : function(req,res,next){
 			var url = '/products/'+req.params.id+'?expand=availability,prices';
 			var url2 = '/products/'+req.params.id+'/images?view_type=';
-			catalog.callapi(url,function(err,data1){
+			dwocapi.get(url,function(err,data1){
 				if(!err && data1){
 					res.product = data1;
-					catalog.callapi(url2,function(err,data2){
+					dwocapi.get(url2,function(err,data2){
 						if(!err && data2){
 							res.product.image_groups = data2.image_groups;
 							next();
@@ -49,14 +53,17 @@ var catalog = {
 		},
 		/**
 		 * Get Product by category
+		 * @param req
+		 * @param res
+		 * @param next
 		 */
 		getProducts : function(req,res,next){
 			var url = '/product_search/images?refine_1=cgid='+req.params.catalog;
 			var url2 = '/product_search/prices?refine_1=cgid='+req.params.catalog;
-			catalog.callapi(url2,function(err,data1){
+			dwocapi.get(url2,function(err,data1){
 				if(!err && data1){
 					res.products = data1;
-					catalog.callapi(url,function(err,data2){
+					dwocapi.get(url,function(err,data2){
 						if(!err && data2){
 							res.products = catalog.mapProduct(data2,res.products);
 							next();
@@ -75,10 +82,13 @@ var catalog = {
 		},
 		/**
 		 * Get Categories
+		 * @param req
+		 * @param res
+		 * @param next
 		 */
 		getCategories : function(req,res,next){
 			var url = '/categories/root?levels=1';
-			catalog.callapi(url,function(err,data){
+			dwocapi.get(url,function(err,data){
  				if(!err && data){
 					res.cats = data;
 		 		}else{
@@ -87,20 +97,10 @@ var catalog = {
 		 		next();
 		 	});
 		},
-		/**
-		 * Call Open Commerce API
-		 */
-		callapi : function(url,callback){
- 			fulluri = config.api.host+config.api.base_url+url+'&client_id='+config.api.client_id;
-			console.log("API URL : "+fulluri);
- 			request(fulluri, function (error, response, body) {
- 				  if (response.statusCode == 200) {
- 					 callback(error,JSON.parse(body));
- 				  }
- 			});
- 		},
  		/**
-		 * Render HOME
+ 		 * Render HOME
+ 		 * @param req
+ 		 * @param res
  		 */
  		render : function(req,res){
  			
@@ -108,6 +108,8 @@ var catalog = {
 		},
 		/**
 		 * Render PLP
+		 * @param req
+		 * @param res
 		 */
 		renderPLP : function(req,res){
 			res.render('products', {categories: res.cats.categories,products: res.products});
