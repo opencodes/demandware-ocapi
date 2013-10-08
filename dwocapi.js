@@ -52,7 +52,7 @@ module.exports = dwocapi;
 });*/
 var url = '/basket/this/add';
 var data = {
-  "product_id" : '8033031934527',
+  "product_id" : '8056508599647',
   "quantity" : 1,
   "inventory_id" : config.api.inventory_id,
 };

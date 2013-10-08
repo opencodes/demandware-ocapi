@@ -10,6 +10,7 @@
     "ejs": "*",
     "stylus": "*",
     "request":"*",
-    "connect-redis":"1.4.5"
+    "connect-redis":"1.4.5",
+    "connect":"2.9.0"
   }
 }

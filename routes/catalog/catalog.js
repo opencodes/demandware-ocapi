@@ -8,24 +8,36 @@ var catalog = {
 		 * @param next
 		 */
 		getProductById : function(req,res,next){
-			var url = '/products/'+req.params.id;
+			var url = '/products/'+req.params.id+'/variations';
+			var url1 = '/products/'+req.params.id;
 			var url2 = '/products/'+req.params.id+'/images';
 			options = {
 					expand : 'availability,prices'
 			};
-			dwocapi.get(url,options,function(err,data1){
-				if(!err && data1){
-					res.product = data1;
-					dwocapi.get(url2,{},function(err,data2){
-						if(!err && data2){
-							res.product.image_groups = data2.image_groups;
-							next();
+			dwocapi.get(url,{},function(err,data){
+				if(!err && data){
+					res.product = data;
+					dwocapi.get(url1,options,function(err,data1){
+						if(!err && data1){
+							console.log(data1)
+							res.product.price = data1.price;
+							res.product.inventory = data1.inventory;
+							dwocapi.get(url2,{},function(err,data2){
+								if(!err && data2){
+									res.product.image_groups = data2.image_groups;
+									next();
+								}else{
+									res.products = null;
+									next();
+								}
+								
+							});
 						}else{
 							res.products = null;
 							next();
-						}
+		 				}
 						
-					});
+		 			});
 				}else{
 					res.products = null;
 					next();
@@ -128,6 +140,7 @@ var catalog = {
  		 * @param res
  		 */
 		renderPDP : function(req,res){
+			//console.log(res.product);
 			res.render('product_detail', {categories: res.cats.categories,product: res.product});
  		}
 };

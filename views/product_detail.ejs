@@ -81,13 +81,14 @@
 										<a href="<%= product.image_groups[k].images[0].link %>" class="thumbnail" data-fancybox-group="group1" title="Description 2">
 										<img src="<%= product.image_groups[k].images[0].link %>" alt=""></a>
 									</li>
-              					 <% } %>									
+        <% } %>									
 								</ul>
 							</div>
 							<div class="span5">
 								<address>
 									<strong>Brand:</strong> <span><%= product.brand %></span><br>
-									<strong>Product Code:</strong> <span><%= product.id %></span><br>
+									<strong>Product Code:</strong> <span><%= product.id %></span>
+									<br>
 									<strong>Availability:</strong> <span><%= product.inventory.stock_level %></span><br>								
 								</address>									
 								<h4><strong>Price: $<%= product.price %></strong></h4>
@@ -105,7 +106,11 @@
 									
 									<label>Qty:</label>
 									<input type="text" class="span1" placeholder="1" value="1" name="qty">
-									<input type="hidden" class="span1" placeholder="1" value="<%=product.id%>" name="pid">
+									<select name="pid">
+          <% for (var k in product.variants) { %>
+          <option value="<%= product.variants[k].product_id %>"><%= product.variants[k].product_id %></option>
+          <% } %>     
+         </select>
 									<button class="btn btn-inverse" type="submit">Add to cart</button>
 								  </form>
 							</div>							
