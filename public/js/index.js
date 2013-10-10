@@ -13,33 +13,45 @@ var app = (function (app, $) {
 	/**
 	 * Application configurations and constants
 	 */
-	app.config = {
-			base_url : "http://dev13-shop-diesel.demandware.net/s/DieselUS/dw/",
-			client_id:'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+	var api = {
+		  host : 'http://dev13-shop-diesel.demandware.net',
+		  base_url : "/s/DieselUS/dw/shop/v13_5",
+		  client_id:'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+		  inventory_id :'inventory-dslna-dslus'
+	  };
+		
+	/**
+	 * Call Open Commerce API
+	 */
+	app.ajaxLogin = function(url){
+		console.log('Success');
+		$('#checkout-login').submit(function(e){
+			e.preventDefault();
+			var form = $('#checkout-login');
+			$.ajax({
+			     type : "POST",
+			     dataType : "json",
+			     data : form.serialize(),
+			     url : url,
+			     success: function(data){
+			    	 console.log(data);
+			     },
+			     failure:function(err){
+			    	 console.log(err);
+			     }
+			});
+		});
+		
 	};
 	/**
 	 * Initialize Application
 	 */
 	app.init = function(){
-		console.log('Success');
-	};	
-	/**
-	 * Call Open Commerce API
-	 */
-	app.callapi = function(url,callback){
-		$.ajax({
-		     type : "GET",
-		     dataType : "jsonp",
-		     data : {client_id:app.config.client_id},
-		     url : app.config.base_url+url,
-		     success: function(data){
-		    	 
-		           callback({'status':true,items:data});
-		     },
-		     failure:function(){
-		    	   callback({'status':false,items:null});
-		     }
-		});
+		
+		app.ajaxLogin('/account/login');
 	};
-	app.init();
+	$(document).ready(function() {
+			app.init();
+	});
 }(window.app = window.app || {}, jQuery));
+	

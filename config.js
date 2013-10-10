@@ -3,8 +3,9 @@ module.exports = config = {
   "version": "0.0.1",
   "api": {
 	  host : 'http://dev13-shop-diesel.demandware.net',
-	  base_url : "/s/DieselUS/dw/shop/v13_5",
+	  hosthttps : 'https://dev13-shop-diesel.demandware.net',
+	  base_url : "/s/SiteGenesis/dw/shop/v13_5",
 	  client_id:'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-	  inventory_id :'inventory-dslna-dslus'
+	  inventory_id :'inventory'
   }
 };

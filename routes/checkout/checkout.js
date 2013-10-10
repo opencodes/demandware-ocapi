@@ -15,13 +15,10 @@ var checkout = {
 			var url = '/basket/this/add';
 			var data = {
 			  "product_id" : req.body.pid,
-			  "quantity" : req.body.qty,
+			  "quantity" : parseInt(req.body.qty),
 			  "inventory_id" : config.api.inventory_id,
 			};
-			console.log(data);
 			dwocapi.post(url,data,function(err,data1){
-				console.log(data1);
-				res.cart = data1;
 				req.session.cart = data1;
 				res.redirect('/cart');
 			});
@@ -43,9 +40,15 @@ var checkout = {
 		 * @param res
 		 */
 		renderCART : function(req,res){
-			console.log(req.session);
-			console.log('==========');
 			res.render('cart', {categories: res.cats.categories,cart: req.session.cart});
+		},
+		/**
+		 * Render Checkout Page
+		 * @param req
+		 * @param res
+		 */
+		renderCHECKOUT_SHIPPING : function(req,res){
+			res.render('checkout', {categories: res.cats.categories,cart: req.session.cart});
 		}
 		
 };

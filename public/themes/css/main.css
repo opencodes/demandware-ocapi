@@ -523,7 +523,6 @@ section.our_client .row{
 	margin-bottom:0;
 }
 .search_form input{
-	background: url(../images/search.png) #fff no-repeat 97% 6px;
 	color:#fff;
 	text-shadow:none;
 	padding-right:25px;	
@@ -652,7 +651,6 @@ section.our_client .row{
 	margin-bottom:-30px;
 }
 .block h4{
-	background: url(../images/bg_h.png) no-repeat bottom left;
 	margin: 0 0 20px 0;
 	border-bottom:1px solid #eee;	
 }
@@ -661,7 +659,6 @@ section.our_client .row{
 /* Navigation list */
 .nav-header{
 	color:#333;
-	background: url(../images/bg_h.png) no-repeat bottom left;
 	margin-bottom:10px;
 }
 .nav-list li{

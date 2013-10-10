@@ -31,7 +31,7 @@ var dwocapi = {
 	 * @param callback
 	 */
 	post : function(url,options,callback){
-		 fulluri = config.api.host+config.api.base_url+url+'?client_id='+config.api.client_id;
+		 fulluri = config.api.hosthttps+config.api.base_url+url+'?client_id='+config.api.client_id;
 		 console.log("API URL : "+fulluri);
 		 console.log('=====================================================================');
 		 request({
@@ -50,7 +50,7 @@ module.exports = dwocapi;
 /*dwocapi.get('/categories/root?levels=1',function(err,response){
 	//console.log(response);
 });*/
-var url = '/basket/this/add';
+/*var url = '/basket/this/add';
 var data = {
   "product_id" : '8056508599647',
   "quantity" : 1,
@@ -58,4 +58,4 @@ var data = {
 };
 dwocapi.post(url,data,function(err,data1){
 	console.log(err);console.log(data1);	
-});
+});*/
